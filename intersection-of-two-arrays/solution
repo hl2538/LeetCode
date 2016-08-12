@@ -1,4 +1,12 @@
-	
+
+	/**
+	 * merge tow sorted arrays into one sorted array
+	 * @param nums1 first sorted array
+	 * @param m size of the first input sorted array
+	 * @param nums2 second sorted array
+	 * @param n size of the second input sorted array
+	 * @return
+	 */
 	public static int[] merge(int[] nums1, int m, int[] nums2, int n) {
         int[] nums = new int[m+n];
         int i = 0;
@@ -35,7 +43,12 @@
 	
 	
 
-	
+	/**
+	 * return the intersection array of two arrays in a sorted order
+	 * @param nums1
+	 * @param nums2
+	 * @return
+	 */
 	public static int[] intersection(int[] nums1, int[] nums2){
 		nums1 = mergeSortArray(nums1);
 		nums2 = mergeSortArray(nums2);
@@ -60,6 +73,12 @@
 		
 	}
 	
+	/**
+	 * ifHave method return a boolean value which indicates whether the input array has the input item(value)
+	 * @param nums the input arrays
+	 * @param item the item that we want to make sure whether the input array has or not
+	 * @return
+	 */
 	public static boolean ifHave(int[] nums, int item){
 		int length = nums.length;
 		for(int i=0; i<length; i++){
@@ -71,6 +90,13 @@
 	}
 	
 	
+	
+	/**
+	 * remove nth position item of the input array
+	 * @param nums
+	 * @param nth
+	 * @return
+	 */
 	public static int[] remove(int[] nums, int nth){
 		if(nums.length==0){
 			return nums;
@@ -93,6 +119,12 @@
 		}
 	}
 	
+	
+	/**
+	 * remove repeated items of the input array and output it in sorted order
+	 * @param nums
+	 * @return
+	 */
 	public static int[] abbr(int[] nums){
 		if(nums.length==0)return nums;
 		nums = mergeSortArray(nums);
@@ -111,7 +143,13 @@
 		return nums;
 	}
 	
-	public static Object[][] seperateArray(int[] nums){
+	
+	/**
+	 * separate the input 1-dimension array and return a 2-dimension array 
+	 * @param nums
+	 * @return
+	 */
+	public static Object[][] separateArray(int[] nums){
 		Object[][] nums1 = new Object[1][nums.length];
 		for(int i=0; i<nums.length; i++){
 			int[] nn = new int[1];
@@ -122,13 +160,17 @@
 	}
 	
 	
-	
+	/**
+	 * sort the input array by using merge-sort
+	 * @param nums
+	 * @return
+	 */
 	public static int[] mergeSortArray(int[] nums){
 		if(nums.length==0){
 			return nums;
 		}
 		else{
-			Object[][] nums1 = seperateArray(nums);
+			Object[][] nums1 = separateArray(nums);
 			while((nums1[0].length!=1)&&(nums1[0].length!=0)){
 				Object[][] nums2 = new Object[1][nums1[0].length-1];
 				int[] n1 = (int[])nums1[0][0];
