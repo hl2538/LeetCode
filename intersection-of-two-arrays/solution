@@ -1,0 +1,149 @@
+	
+	public static int[] merge(int[] nums1, int m, int[] nums2, int n) {
+        int[] nums = new int[m+n];
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while((i<m)&&(j<n)){
+            if(nums1[i]<nums2[j]){
+                nums[k] = nums1[i];
+                i++;
+                k++;
+            }
+            else{
+                nums[k] = nums2[j];
+                j++;
+                k++;
+            }
+        }
+        if(i>=m){
+            while(j<n){
+                nums[k] = nums2[j];
+                k++;
+                j++;
+            }
+        }
+        else{
+            while(i<m){
+                nums[k] = nums1[i];
+                k++;
+                i++;
+            }
+        }
+        return nums;
+    }
+	
+	
+
+	
+	public static int[] intersection(int[] nums1, int[] nums2){
+		nums1 = mergeSortArray(nums1);
+		nums2 = mergeSortArray(nums2);
+		nums1 = abbr(nums1);
+		nums2 = abbr(nums2);
+		int length = nums2.length;
+		int count =0;
+		int k=0;
+		for(int i=0; i<length; i++){
+			if(ifHave(nums1, nums2[i])){
+				count++;
+			}
+		}
+		int[] nums = new int[count];
+		for(int i=0; i<length; i++){
+			if(ifHave(nums1, nums2[i])){
+				nums[k] = nums2[i];
+				k++;
+			}
+		}
+		return nums;
+		
+	}
+	
+	public static boolean ifHave(int[] nums, int item){
+		int length = nums.length;
+		for(int i=0; i<length; i++){
+			if(nums[i]==item){	
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	public static int[] remove(int[] nums, int nth){
+		if(nums.length==0){
+			return nums;
+		}
+		else{
+			int[] nums1 = new int[nums.length-1];
+			int i=0;
+			int k = nth;
+			while(i<nth-1){
+				nums1[i] = nums[i];
+				i++;
+			}
+			
+			while(k<nums.length){
+				nums1[i] = nums[k];
+				k++;
+				i++;
+			}
+			return nums1;
+		}
+	}
+	
+	public static int[] abbr(int[] nums){
+		if(nums.length==0)return nums;
+		nums = mergeSortArray(nums);
+		int i =0;
+		while(i<nums.length){
+			if(i==nums.length-1){
+				return nums;
+			}
+			if(nums[i]==nums[i+1]){
+				nums = remove(nums, i+1);
+			}
+			else{
+				i++;
+			}
+		}
+		return nums;
+	}
+	
+	public static Object[][] seperateArray(int[] nums){
+		Object[][] nums1 = new Object[1][nums.length];
+		for(int i=0; i<nums.length; i++){
+			int[] nn = new int[1];
+			nn[0] = nums[i];
+			nums1[0][i] = nn;
+		}
+		return nums1;
+	}
+	
+	
+	
+	public static int[] mergeSortArray(int[] nums){
+		if(nums.length==0){
+			return nums;
+		}
+		else{
+			Object[][] nums1 = seperateArray(nums);
+			while((nums1[0].length!=1)&&(nums1[0].length!=0)){
+				Object[][] nums2 = new Object[1][nums1[0].length-1];
+				int[] n1 = (int[])nums1[0][0];
+				int[] n2 = (int[])nums1[0][1];
+				int[] n3 = merge(n1, n1.length, n2, n2.length);
+				int k =0;
+				for(int j = 2; j<nums1[0].length; j++){
+					nums2[0][k] = nums1[0][j]; 
+					k++;
+				}
+				nums2[0][k] = n3;
+				nums1 = nums2;
+			}
+			int[] nums3 = (int[])nums1[0][0];
+			
+			return nums3;
+		}
+	}
