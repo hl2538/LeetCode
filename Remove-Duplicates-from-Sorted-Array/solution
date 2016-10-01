@@ -1,0 +1,20 @@
+public class Solution {
+    public int removeDuplicates(int[] nums) {
+        int length = nums.length;
+        int position = 1;
+        if(length == 0)return 0;
+        if(length == 1)return 1;
+        while(position<length){
+            if(nums[position-1] == nums[position]){
+                for(int j = position; j<length; j++){
+                    nums[j-1] = nums[j];
+                }
+                length--;
+            }
+            else{
+                position++;
+            }
+        }
+        return length;
+    }
+}
