@@ -1,0 +1,39 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int minDepth(TreeNode root) {
+        ArrayList<String> pathlist = new ArrayList<String>();
+        if(root==null)return 0;
+        pathCal(root, "", pathlist);
+        int size = pathlist.size();
+        int[] ss = new int[size];
+        for(int i=0; i<size; i++){
+            ss[i] = pathlist.get(i).split("->").length;
+        }
+        int min = findMin(ss);
+        return min;
+        
+        
+    }
+    public int findMin(int[] ss){
+        int length = ss.length;
+        int min = ss[0];
+        for(int i = 1; i<length; i++){
+            if(ss[i]<=min)min = ss[i];
+        }
+        return min;
+    }
+    
+    public void pathCal(TreeNode root, String path, ArrayList<String> pathlist){
+        if(root.left==null&&root.right==null) pathlist.add(path+root.val+"->");
+        if(root.left!=null)pathCal(root.left, path+ root.val+"->", pathlist);
+        if(root.right!=null)pathCal(root.right, path+root.val+"->", pathlist);
+    }
+}
