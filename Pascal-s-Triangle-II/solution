@@ -1,0 +1,30 @@
+public class Solution {
+    public List<Integer> getRow(int rowIndex) {
+        List<List<Integer>> pascal = new  ArrayList<List<Integer>>();
+        pascal = createPascal(rowIndex+1);
+        return pascal.get(rowIndex);
+    }
+    
+    public List<List<Integer>> createPascal(int row){
+        List<List<Integer>> pascal = new  ArrayList<List<Integer>>();
+        ArrayList<Integer> oo = new ArrayList<Integer>();
+        ArrayList<Integer> pp = new ArrayList<Integer>();
+        oo.add(1);
+        pascal.add(oo);
+        pp.add(1);
+        pp.add(1);
+        pascal.add(pp);
+        
+        
+        for(int i=2; i<row; i++){
+            ArrayList<Integer> value = new ArrayList<Integer>();
+            value.add(1);
+            for(int j=1; j<i; j++){
+                value.add((pascal.get(i-1).get(j-1)+pascal.get(i-1).get(j)));
+            }
+            value.add(1);
+            pascal.add(value);
+        }
+        return pascal;
+    }
+}
