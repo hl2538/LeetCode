@@ -1,0 +1,55 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> pathList1 = new ArrayList<List<Integer>>();
+        List<List<Integer>> pathList2 = new ArrayList<List<Integer>>();
+        pathList1 = levelTraversal(root);
+        int size = pathList1.size();
+        for(int i=size-1; i>=0; i--){
+            pathList2.add(pathList1.get(i) );
+        }
+        System.out.println(pathList2);
+        return pathList2;
+    }
+    
+    
+    public List<List<Integer>> levelTraversal(TreeNode root){
+        
+        List<List<Integer>> pathList = new ArrayList<List<Integer>>();
+        ArrayList<Integer> value = new ArrayList<Integer>();
+        if(root==null)return pathList;
+        
+        LinkedList<TreeNode> current = new LinkedList<TreeNode>();
+        LinkedList<TreeNode> next = new LinkedList<TreeNode>();
+        
+        current.add(root);
+        
+        while(!current.isEmpty()){
+            TreeNode node = current.poll();
+            value.add(node.val);
+            
+            if(node.left!=null){
+                next.add(node.left);
+            }
+            if(node.right!=null){
+                next.add(node.right);
+            }
+            if(current.isEmpty()){
+                current = next;
+                next = new LinkedList<TreeNode>();
+                pathList.add(value);
+                value = new ArrayList<Integer>();
+            }
+        }
+        return pathList;
+    }
+    
+}
