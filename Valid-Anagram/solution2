@@ -1,0 +1,18 @@
+    public boolean isAnagram(String s, String t) {
+    	if(s.length()!=t.length())return false;
+        char[] ss = s.toCharArray();
+        char[] tt = t.toCharArray();
+        int[] gram1 = new int[26];
+        int[] gram2 = new int[26];
+        for(int i =0; i<tt.length; i++){
+        	gram1[ss[i] - 'a']++;
+        	gram2[tt[i] - 'a']++;
+        }
+        int index = 0;
+        for(int count : gram1){
+        	if(gram2[index] != count)return false;
+        	index++;
+        }
+        return true;
+        
+    }
