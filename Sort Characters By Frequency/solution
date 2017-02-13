@@ -1,0 +1,44 @@
+import java.util.Collection;
+public class Solution {
+    public String frequencySort(String s) {
+        int[] list = new int[256];
+        for(int i=0; i<s.length(); i++){
+            list[s.charAt(i)]++;
+        }
+        Map<Character, Integer> map = new HashMap<>();
+        for(int j = 0; j<list.length; j++){
+            if(list[j]>0){
+                if(!map.containsKey((char)j)){
+                    map.put((char)j, 0);
+                }
+                map.put((char)j, list[j]);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        while(map.size()>0){
+            Collection<Integer> values = map.values();
+            int max = findMax(values);
+
+            char cc = 0;
+            for(Character c : map.keySet()){
+                if(map.get(c) == max){
+                    cc = c;
+                }
+            }
+            for(int x = 0; x<max; x++){
+                sb.append(cc);
+            }
+            map.remove(cc);
+        }
+        return sb.toString();
+
+    }
+    
+    public int findMax(Collection<Integer> collection){
+        int max = 0;
+        for(int num: collection){
+            max = Math.max(max, num);
+        }
+        return max;
+    }
+}
