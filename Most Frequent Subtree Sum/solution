@@ -1,0 +1,56 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+ import java.util.Hashtable;
+public class Solution {
+    public int[] findFrequentTreeSum(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        Hashtable<Integer,Integer> table = new Hashtable<Integer, Integer>();
+        helper(root, list);
+        for(int num : list){
+            if(!table.containsKey(num)){
+                table.put(num, 0);
+            }
+            table.put(num,(table.get(num))+1);
+        }
+        int max = findMax(table);
+        List<Integer> values = new ArrayList<>();
+        for(int key: table.keySet()){
+            if(table.get(key)==max)values.add(key);
+        }
+        
+        int[] nums = new int[values.size()];
+        for(int i=0; i<values.size(); i++){
+            nums[i] = values.get(i);
+        }
+        return nums;
+        
+        
+    }
+    
+    public int helper(TreeNode node, List<Integer> list){
+        if(node == null)return 0;
+        int curValue = node.val;
+        int leftValue = helper(node.left, list);
+        int rightValue = helper(node.right, list);
+        int total = curValue + leftValue + rightValue;
+        list.add(total);
+        return total;
+    }
+    
+    public int findMax(Hashtable<Integer, Integer> table){
+        int max = 0;
+        for(int key: table.keySet()){
+            if(table.get(key)>=max){
+                max = table.get(key);
+            }
+        }
+        return max;
+    }
+}
