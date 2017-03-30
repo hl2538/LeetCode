@@ -1,0 +1,56 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode convertBST(TreeNode root) {
+        List<Integer> list = new ArrayList<>();
+        inOrder(root,list);
+        int array = converst(list);
+        TreeNode node = root;
+        
+        for(int i = 0; i<array.length; i++){
+            int sum = sum(array, i);
+            array[i] = sum;
+        }
+        
+        
+    }
+    
+    public void inOrder(TreeNode root, List<Integer> list){
+        if(root == null)return;
+        inOrder(root.left, list);
+        list.add(root.val);
+        inOrder(root.right, list);
+    }
+    
+    
+    public int[] convert(List<Integer> list){
+        int[] array = new int[list.size()];
+        for(int i = 0 ; i< list.size(); i++){
+            array[i] = list.get(i);
+        }
+        return array;
+    }
+    
+    public int binarySearch(int[] array, int num, int start, int end){
+        int middle  = start + (end - start)/2;
+        if(num  == array[middle])return middle;
+        else if(num > array)binarySearch(array, num, middle+1, end);
+        else binarySearch(array, num, start, middle);
+    }
+    
+    public int sum(int[] array, int position){
+        int num = array[position];
+        int sum = 0;
+        for(int i = position; i<array.length; i++){
+            sum = sum + array[i];
+        }
+        return sum;
+    }
+}
