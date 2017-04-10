@@ -1,0 +1,30 @@
+public class Solution {
+    public String reverseWords(String s) {
+        String[] sentance = s.split(" ");
+        
+        for(int i =0 ; i<sentance.length; i++){
+            String word = sentance[i];
+            String inverseWord = inverse(word);
+            if(i<sentance.length-1){
+                sentance[i] = inverseWord+" ";
+            }
+            else sentance[i] = inverseWord;
+        }
+        String w = "";
+        for(int i =0; i<sentance.length; i++){
+            w = w+sentance[i];
+        }
+        return w;
+    }
+    
+    public String inverse(String word){
+        char[] chars = new char[word.length()];
+        int index = 0;
+        for(int i = word.length()-1; i>=0; i--){
+            chars[index] = word.charAt(i);
+            index++;
+        }
+    
+        return new String(chars);
+    }
+}
